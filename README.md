@@ -1,4 +1,4 @@
-"Image Denoising in MATLAB" 
+#Image Denoising in MATLAB
 This project demonstrates noise generation, noise removal, and quality evaluation in digital images using MATLAB.
 It compares different filtering techniques on two common noise types: Gaussian noise and Salt & Pepper noise.
 

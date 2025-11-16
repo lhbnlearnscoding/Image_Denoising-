@@ -1,101 +1,88 @@
-#Image Denoising in MATLAB
-This project demonstrates noise generation, noise removal, and quality evaluation in digital images using MATLAB.
-It compares different filtering techniques on two common noise types: Gaussian noise and Salt & Pepper noise.
+# Image Denoising in MATLAB
 
-1. Features
+This project demonstrates image denoising using different filters in MATLAB.  
+Two types of noise are added to a clean image and then removed using several filtering techniques.  
+The quality of the restored images is evaluated using MSE and PSNR.
 
-Load an image using a file explorer (uigetfile)
+---
 
-Add two types of noise:
+## 1. Features
 
-Gaussian noise
+- Load an image using a file explorer (`uigetfile`).
+- Add two types of noise:
+  - Gaussian noise
+  - Salt & Pepper noise
+- Apply three types of filters:
+  - Mean filter (average filter)
+  - Gaussian filter
+  - Median filter
+- Compute quality metrics:
+  - **MSE** (Mean Squared Error)
+  - **PSNR** (Peak Signal-to-Noise Ratio)
+- Display:
+  - Original image
+  - Noisy images
+  - Denoised images for each filter
+  - Numerical results in the Command Window
 
-Salt & Pepper noise
+---
 
-Apply three types of filters:
+## 2. Theory Overview
 
-Mean filter (Average)
+### Noise Types
 
-Gaussian filter
+- **Gaussian noise**  
+  Models sensor or transmission noise, values are usually distributed around the original pixel value.
 
-Median filter
+- **Salt & Pepper noise**  
+  Random pixels are set to minimum (black) or maximum (white) values. This often comes from bit errors or impulsive disturbances.
 
-Compute image quality metrics:
+### Filters
 
-MSE (Mean Squared Error)
+- **Mean filter**  
+  Replaces each pixel with the average of its neighbors. Simple but blurs edges and is sensitive to outliers.
 
-PSNR (Peak Signal-to-Noise Ratio)
+- **Gaussian filter**  
+  Performs a weighted average where pixels closer to the center have higher weights. It produces smooth results and preserves structure better than the mean filter.
 
-Display visual comparison and print numerical results
+- **Median filter**  
+  Replaces each pixel with the median of its neighbors. It is very effective at removing outliers (e.g., Salt & Pepper noise) while preserving edges.
 
-2. How It Works
-Noise Addition
+### Evaluation Metrics
 
-Gaussian noise simulates sensor or transmission noise.
+- **MSE (Mean Squared Error)**  
+  Measures the average squared difference between the original and denoised images.  
+  → Lower MSE means better reconstruction.
 
-Salt & Pepper noise simulates random black/white corrupted pixels.
+- **PSNR (Peak Signal-to-Noise Ratio)**  
+  A logarithmic measure in decibels (dB) derived from MSE.  
+  → Higher PSNR means better image quality.
 
-Filtering Methods
+---
 
-Mean filter: simple averaging; reduces noise but blurs the image.
+## 3. Experimental Results (Example)
 
-Gaussian filter: weighted averaging; smoother and preserves structure better.
+For both Gaussian noise and Salt & Pepper noise:
 
-Median filter: removes extreme pixel values (outliers); best for Salt & Pepper noise.
+- The **3×3 median filter** gives the **best results** (lowest MSE, highest PSNR).
+- The **5×5 median filter** is second best but causes more blurring.
+- Gaussian filters perform moderately.
+- Mean filters generally perform the worst.
 
-Evaluation Metrics
+**Conclusion:**
 
-MSE measures the average error between the original and restored images.
-Lower MSE = better quality.
+- For **Salt & Pepper noise**, the median filter is clearly the best choice.
+- For **Gaussian noise**, Gaussian and median filters both work, but in this experiment, the 3×3 median filter still performs very well.
+- Smaller kernels (3×3) tend to preserve more details than larger ones (5×5).
 
-PSNR expresses quality in decibels.
-Higher PSNR = better quality.
+---
 
-3. Results Summary
-Gaussian Noise
+## 4. How to Run
 
-Median 3×3 achieves the best quality (highest PSNR, lowest MSE).
-
-Gaussian filters perform moderately well.
-
-Mean filters perform the worst.
-
-Salt & Pepper Noise
-
-Median filters dominate, especially 3×3.
-
-Gaussian and mean filters are less effective.
-
-4. Why Median Filter Works Best
-
-A median filter replaces each pixel with the median value of neighboring pixels.
-It removes outliers (extremely bright or dark pixels) without blurring the image, making it ideal for Salt & Pepper noise.
-
-5. How to Run
-
-Open MATLAB.
-
-Place all .m files in the same folder.
-
-Run:
-
-main
-
-
-Choose an image when prompted.
-
-View the filtered results and quality metrics.
-
-6. Requirements
-
-MATLAB R2018+
-
-Image Processing Toolbox (recommended)
-
-7. Files
-
-main.m – main program
-
-calc_mse_psnr.m – function to compute MSE & PSNR
-
-Sample images for testing
+1. Open MATLAB.
+2. Put all `.m` files in the same folder:
+   - `main.m`
+   - `calc_mse_psnr.m`
+3. In the MATLAB Command Window, run:
+   ```matlab
+   main
